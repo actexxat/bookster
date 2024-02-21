@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <form action="/home" method="post">
+    <form action="/results" method="post">
       <div class="search-box">
-        <label class="form-label" for="search">Search for a Book:</label>
+        <label class="form-label" >Search for a Book:</label>
         <input class="form-control" name="search" type="text" placeholder="Eg. Crime and Punishment">
         <input class="btn btn-dark" type="submit" value="Search">
       </div>
     </form>
 
-    <div class="home">
-        <table class="table ">
+    <div class="home table-responsive card">
+        <table class="table table-dark table-striped table-hover " style="">
             <thead>
               <tr>
                 <th class="text-center align-middle" scope="col">#</th>
@@ -19,6 +18,9 @@
                 <th class="text-center align-middle" scope="col">Autor</th>
                 <th class="text-center align-middle" scope="col">Year</th>
                 <th class="text-center align-middle" scope="col">User</th>
+                <th class="text-center align-middle" scope="col">shelf</th>
+                <th class="text-center align-middle" scope="col">X</th>
+
               </tr>
             </thead>
             <tbody>
@@ -33,6 +35,7 @@
                     <td class="text-center align-middle">{{book[3]}}</td>
                     <td class="text-center align-middle">{{book[4]}}</td>
                     <td class="text-center align-middle">{{book[5]}}</td>
+                    <td class="text-center align-middle">{{book[6]}}</td>
                       <td class="text-center align-middle">
                           <button class="remove" type="submit">Remove</button></td>
 
@@ -43,6 +46,4 @@
                 </tbody>
               </table>
     </div>
-
-
 {% endblock %}

@@ -15,27 +15,32 @@ removeBTNS.forEach(rmv =>{
             title:titleRmv
             }
         sendToRemove(send_rmv)
+        this.parentElement.parentElement.remove()
 
     })
 })
 
 
-console.log(serials)
 selectBtns.forEach(btn => {
   btn.addEventListener('click', function() {
     let bookCover = this.parentElement.children[0].firstChild.src.trim();
     let bookTitle = this.parentElement.children[1].children[0].textContent.trim();
     let pubYear = this.parentElement.children[1].children[1].textContent.trim();
     let bookAuthor = this.parentElement.children[1].children[2].textContent.trim();
+    let readingState = this.parentElement.children[1].children[3].value;
     send_data = {
       title:bookTitle,
       author:bookAuthor,
       year:pubYear,
-      cover:bookCover
+      cover:bookCover,
+      state:readingState
       }
     sendDataToFlask(send_data)
 })
+
 });
+
+
 
 function sendToRemove(titleToRemove){
     fetch('/remove', {
@@ -45,18 +50,14 @@ function sendToRemove(titleToRemove){
     },
     body: JSON.stringify(titleToRemove) // Convert data to JSON string
   })
-
-
 }
 
 function sendDataToFlask(data) {
-  fetch('/results', {
+  fetch('/get', {
     method: 'POST', // Use POST for sending data
     headers: {
       'Content-Type': 'application/json' // Specify JSON data format
     },
     body: JSON.stringify(data) // Convert data to JSON string
   })
-
-
 }

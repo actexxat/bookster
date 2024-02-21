@@ -104,6 +104,14 @@ def register():
 @app.route("/home",methods=['POST', 'GET'])
 @login_required
 def home():
+    user = session['user_id']
+    connection = sqlite3.connect("bookex.db")
+    db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
+    return render_template("home.html", data=db_books)
+
+@app.route("/results", methods=['GET','POST'])
+@login_required
+def show_search():
     if request.method == "POST":
         title = request.form.get("search")
         books = search_books(title)
@@ -119,13 +127,9 @@ def home():
                 item['year']  = book['volumeInfo']['publishedDate']
             results.append(item)
         return render_template("results.html", data=results)
-    user = session['user_id']
-    connection = sqlite3.connect("bookex.db")
-    db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
-    return render_template("home.html", data=db_books)
 
 
-@app.route("/results", methods=['POST'])
+@app.route("/get", methods=['POST'])
 @login_required
 def get_data():
     if request.method == 'POST':
@@ -134,13 +138,14 @@ def get_data():
         title = data['title']
         author = data['author']
         cover = data['cover']
+        state = data['state']
         if data['year']:
             year = data['year']
         else:
             year = 'N/A'
 
-        update_db(title, author, year, cover)
-    return render_template('home.html')
+        update_db(title, author, year, cover,state)
+        return redirect(url_for('home'))
 
 
 
@@ -161,10 +166,10 @@ def removeFromDB(title):
     connection.commit()
 
 
-def update_db(title,author,year,cover):
+def update_db(title,author,year,cover,state):
     connection = sqlite3.connect("bookex.db")
     user = session['user_id']
-    connection.cursor().execute('INSERT INTO books(title,author,year,cover,userid) VALUES(?,?,?,?,?)', (title, author, year, cover,user))
+    connection.cursor().execute('INSERT INTO books(title,author,year,cover,userid,shelf) VALUES(?,?,?,?,?,?)', (title, author, year, cover,user,state))
     connection.commit()
     connection.close()
 
