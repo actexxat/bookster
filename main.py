@@ -16,9 +16,9 @@ Session(app)
 @app.route("/", methods=['POST', "GET"])
 def login():
     if request.method == "POST":
-        userName = request.form.get("username")
+        username = request.form.get("username")
         password = request.form.get("password")
-        if (authenticate(userName, password)):
+        if authenticate(username, password):
             return redirect(url_for('home'))
         else: flash("User Does Not Exist or Wrong Password")
 
@@ -33,29 +33,26 @@ def logout():
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
-        userName = request.form.get("username")
-        password = request.form.get("password")
-        passwordConfirmation = request.form.get("password-con")
-        email = request.form.get("email")
-        
-        if password == passwordConfirmation:
+        username, password, password_confirmation, email = request.form.get("username"), request.form.get(
+            "password"), request.form.get("password-con"), request.form.get("email")
+        if password == password_confirmation:
             connection = sqlite3.connect("bookex.db")
             occupied = connection.cursor().execute("SELECT username FROM users")
             for name in occupied:
-                if userName == name[0]:
+                if username == name[0]:
                     return "Username Taken."
 
-            if len(userName) < 4:
+            if len(username) < 4:
                 return "USERNAME length too small"
             if len(password) < 8:
                 return "Password Length Too Small"
-            if password != passwordConfirmation:
+            if password != password_confirmation:
                 return "Passwords do not Match"
             password = password.encode('utf-8')  # Convert the password to bytes
             hash_object = hashlib.sha256(password)  # Choose a hashing algorithm (e.g., SHA-256)
             hex_dig = hash_object.hexdigest()  # Get the hexadecimal digest of the hashed password
 
-            connection.cursor().execute("INSERT INTO users(username, hash, email) VALUES(?, ?, ?)", (userName, hex_dig, email))
+            connection.cursor().execute("INSERT INTO users(username, hash, email) VALUES(?, ?, ?)", (username, hex_dig, email))
             connection.commit()
             connection.close()
             flash("Registration Successful!")
@@ -71,6 +68,7 @@ def home():
     db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
 
     return render_template("home.html", data=list(db_books))
+
 
 @app.route("/results", methods=['POST'])
 @login_required
@@ -97,10 +95,7 @@ def show_search():
 def get_data():
     if request.method == 'POST':
         data = request.get_json()
-        title = data['title']
-        author = data['author']
-        cover = data['cover']
-        state = data['state']
+        title, author, cover, state = data['title'], data['author'], data['cover'], data['state']
         if data['year']:
             year = data['year']
         else:
@@ -108,7 +103,6 @@ def get_data():
 
         update_db(title, author, year, cover,state)
         return redirect(url_for('home'))
-
 
 
 @app.route("/remove", methods=['POST'])

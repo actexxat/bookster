@@ -60,4 +60,8 @@ function sendDataToFlask(data) {
     },
     body: JSON.stringify(data) // Convert data to JSON string
   })
-}
+ window.alert("Done");
+ }
+let currentYear = new Date().getFullYear();
+const yearSpan = document.getElementById("year")
+yearSpan.textContent = currentYear

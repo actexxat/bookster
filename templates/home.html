@@ -18,7 +18,7 @@
                 <th class="text-center align-middle" scope="col" style="width:9em;">Title</th>
                 <th class="text-center align-middle" scope="col">Autor</th>
                 <th class="text-center align-middle" scope="col">Year</th>
-                <th class="text-center align-middle" scope="col">User</th>
+                <th class="d-none text-center align-middle" scope="col">User</th>
                 <th class="text-center align-middle" scope="col">shelf</th>
                 <th class="text-center align-middle" scope="col">X</th>
                   </tr>
@@ -32,7 +32,7 @@
                     <td class="text-center align-middle">{{book[2]}}</td>
                     <td class="text-center align-middle">{{book[3]}}</td>
                     <td class="text-center align-middle">{{book[4]}}</td>
-                    <td class="text-center align-middle">{{book[5]}}</td>
+                    <td class="d-none text-center align-middle">{{book[5]}}</td>
                     <td class="text-center align-middle">{{book[6]}}</td>
                       <td class="text-center align-middle">
                           <button class="remove btn btn-dark" type="submit">Remove</button></td>
@@ -42,8 +42,7 @@
             {% endfor %}
         </table>
         {% else %}
-        <div class="empty"><h1>WOW! SUCH EMPTYNESS!</h1></div>
+        <div class="empty"><h1>WOW! SUCH EMPTINESS!</h1></div>
         {% endif %}
-              </table>
     </div>
 {% endblock %}
