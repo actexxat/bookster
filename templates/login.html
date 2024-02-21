@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-primary">
+            {{ message }}
+          </div>
+        {% endfor %}
     <div id="landing">
         <img src="../static/images/splashlogo.png" alt="logo">
-        <p>Welcome To the Book Exchange Club!</p>
+        <p class="login-title">Welcome To Your Own Book Library!</p>
         <form action="/" method="post">
                 <div class="mb-3">
                 <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Eg.Alan">

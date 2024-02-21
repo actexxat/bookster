@@ -1,0 +1,1 @@
+A simple library app to keep track of books in your library using google's Books API.
