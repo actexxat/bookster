@@ -2,33 +2,31 @@
 {% block content %}
     <form action="/results" method="post">
       <div class="search-box">
-        <label class="form-label" >Search for a Book:</label>
-        <input class="form-control" name="search" type="text" placeholder="Eg. Crime and Punishment">
+        <label class="form-label" >Add New Book:</label>
+        <input class="search-field form-control" name="search" type="text" placeholder="Eg. Crime and Punishment" style="width:20em;">
         <input class="btn btn-dark" type="submit" value="Search">
       </div>
     </form>
+{% if data|length > 0 %}
 
-    <div class="home table-responsive card">
+    <div class="home  table-responsive card">
         <table class="table table-dark table-striped table-hover " style="">
             <thead>
               <tr>
                 <th class="text-center align-middle" scope="col">#</th>
                 <th class="text-center align-middle" scope="col">Cover</th>
-                <th class="text-center align-middle" scope="col">Title</th>
+                <th class="text-center align-middle" scope="col" style="width:9em;">Title</th>
                 <th class="text-center align-middle" scope="col">Autor</th>
                 <th class="text-center align-middle" scope="col">Year</th>
                 <th class="text-center align-middle" scope="col">User</th>
                 <th class="text-center align-middle" scope="col">shelf</th>
                 <th class="text-center align-middle" scope="col">X</th>
-
-              </tr>
+                  </tr>
             </thead>
-            <tbody>
 
-        {% if data %}
+            <tbody>
             {% for book in data %}
                   <tr>
-
                     <th class="serial text-center align-middle" scope="row"></th>
                     <td class="text-center align-middle"><img src="{{book[1]}}" alt="bookcover" class="book-cover"></td>
                     <td class="text-center align-middle">{{book[2]}}</td>
@@ -37,13 +35,15 @@
                     <td class="text-center align-middle">{{book[5]}}</td>
                     <td class="text-center align-middle">{{book[6]}}</td>
                       <td class="text-center align-middle">
-                          <button class="remove" type="submit">Remove</button></td>
-
+                          <button class="remove btn btn-dark" type="submit">Remove</button></td>
                   </tr>
+            </tbody>
 
             {% endfor %}
+        </table>
+        {% else %}
+        <div class="empty"><h1>WOW! SUCH EMPTYNESS!</h1></div>
         {% endif %}
-                </tbody>
               </table>
     </div>
 {% endblock %}

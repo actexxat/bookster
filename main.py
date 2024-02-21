@@ -107,7 +107,8 @@ def home():
     user = session['user_id']
     connection = sqlite3.connect("bookex.db")
     db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
-    return render_template("home.html", data=db_books)
+
+    return render_template("home.html", data=list(db_books))
 
 @app.route("/results", methods=['GET','POST'])
 @login_required
