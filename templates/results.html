@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% if data %}
+        <ul id="myList">
+            {% for item in data %}
+            <li class="result-item">
+                <div class="result-block">
+                    <div class="cover"><img  src="{{ item['cover'] }}" alt=""> </div>
+                    <div>
+                        <p class="title">{{ item['title']  }} </p>
+                        <p class="year">{% if item['year'] %}
+                        {{item['year'][0:4]}}
+                        {% endif %}</p>
+                        <p class="authors">{{ item['author'][0] }}</p>
+                    </div>
+                    <button class="select" type="submit">Select</button>
+
+                </div>
+            </li>
+            {% endfor %}
+    {% endif %}
+        </ul>
+{% endblock %}

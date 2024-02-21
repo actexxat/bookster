@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="mb-3 add">
+
+        <label class="form-label" for="title" >Title </label>
+        <input class="form-control" type="text" name="title" placeholder="Eg.Letters to Milena">
+
+        <label class="form-label" for="author" >Author </label>
+        <input class="form-control" type="text" name="author" placeholder="Eg.Kafka, F.">
+
+        <label class="form-label" for="year" >Year </label>
+        <input class="form-control" type="number" name="year" placeholder="Eg.1952">
+
+        <label class="form-label" for="condition" >Condition </label>
+        <input class="form-control" type="text" name="condition" placeholder="Describe the condition of the book.">
+        
+        <input type="submit" value="Offer">
+    </div>
+
+
+{% endblock %}

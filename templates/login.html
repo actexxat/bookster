@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="landing">
+        <img src="../static/images/splashlogo.png" alt="logo">
+        <p>Welcome To the Book Exchange Club!</p>
+        <form action="/" method="post">
+                <div class="mb-3">
+                <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Eg.Alan">
+                <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="********">
+                <input class="form-control" type="submit" name="submit" value="Sign In" style="background-color: #162D35;color:white;">
+                <span>
+                    <a href="/register"> 
+                        <input class="form-control" type="button" name="register" value="Register" >
+                    </a>
+                </span>
+            </div>
+        </form>
+    </div>
+{% endblock %}

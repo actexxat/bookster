@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/request">
+
+    <div class="mb-3 add">
+
+        <label class="form-label" for="title" >Title </label>
+        <input class="form-control" type="text" name="title" placeholder="Eg.Letters to Milena">
+
+        <label class="form-label" for="author" >Author </label>
+        <input class="form-control" type="text" name="author" placeholder="Eg.Kafka, F.">
+
+        <label class="form-label" for="year" >Year </label>
+        <input class="form-control" type="number" name="year" placeholder="Eg.1952">
+        
+        <input type="submit" value="Post a Request">
+    </div>
+</form>
+
+{% endblock %}
