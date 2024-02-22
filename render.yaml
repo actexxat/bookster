@@ -2,4 +2,4 @@ services:
   - name: Zbooks
     env: python=3.8
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -b 0.0.0.0:$PORT main:app
+    startCommand: gunicorn -b 0.0.0.0:$5000 main:app
