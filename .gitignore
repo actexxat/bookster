@@ -1,4 +1,4 @@
-.venv
-venv
+.venv/
+venv/
 .attach_pid25783
 flask_session/
