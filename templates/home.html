@@ -7,9 +7,10 @@
         <input class="btn btn-dark" type="submit" value="Search">
       </div>
     </form>
+
 {% if data|length > 0 %}
 
-    <div class="home  table-responsive card">
+    <div class="  table-responsive card" style="width: 80%;margin:0 auto;">
         <table class="table table-dark table-striped table-hover " style="">
             <thead>
               <tr>
@@ -45,4 +46,5 @@
         <div class="empty"><h1>WOW! SUCH EMPTINESS!</h1></div>
         {% endif %}
     </div>
+
 {% endblock %}

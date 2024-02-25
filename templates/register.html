@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-primary">
+            {{ message }}
+          </div>
+        {% endfor %}
 
 <div id="landing">
     <img src="../static/images/splashlogo.png" alt="logo">
     <form action="/register" method="post">
             <div class="mb-3">
-            <input class="form-control form-control-lg" type="text" name="fullname" placeholder="Alan Doe" required>
-            <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Alan" required>
+            <input class="form-control form-control-lg" type="text" name="fullname" placeholder="Full Name" required>
+            <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="Username" required>
             <input class="form-control form-control-lg" type="email" name="email" placeholder="Email (optional)" >            
             <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Password" required>
-            <input class="form-control form-control-lg" type="password" name="password-con" id="password" placeholder="Cofirm Your Passowrd" required>
+            <input class="form-control form-control-lg" type="password" name="password-con" id="password_con" placeholder="Cofirm Your Passowrd" required>
             <input class="form-control" type="submit" name="register" value="Create Account" style="border: 1px solid green;" required>
         </div>
     </form>

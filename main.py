@@ -43,11 +43,17 @@ def register():
                     return "Username Taken."
 
             if len(username) < 4:
-                return "USERNAME length too small"
+                flash("USERNAME length too small")
+                return render_template("register.html")
+
             if len(password) < 8:
-                return "Password Length Too Small"
+                flash("password length too small")
+                return render_template("register.html")
+
             if password != password_confirmation:
-                return "Passwords do not Match"
+                flash("Passwords do not Match")
+                return render_template("register.html")
+
             password = password.encode('utf-8')  # Convert the password to bytes
             hash_object = hashlib.sha256(password)  # Choose a hashing algorithm (e.g., SHA-256)
             hex_dig = hash_object.hexdigest()  # Get the hexadecimal digest of the hashed password
