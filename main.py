@@ -62,7 +62,6 @@ def register():
         if password == password_confirmation:
             connection = sqlite3.connect("bookex.db")
             occupied = connection.cursor().execute("SELECT username FROM users")
-            connection.close()
             for name in occupied:
                 if username == name[0]:
                     return "Username Taken."
