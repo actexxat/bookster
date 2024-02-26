@@ -75,8 +75,9 @@ function sendDataToFlask(data) {
 
     // Show the popup
     popup.style.display = 'block';
-    popup.style.position = 'absolute';
-    popup.style.margin = '20% 20%';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
     popup.classList.add("card");
 
     // Set a timeout to hide the popup after a certain duration (e.g., 3000 milliseconds or 3 seconds)
