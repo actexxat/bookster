@@ -129,6 +129,14 @@ html, body{
     min-height:100vh;
 }
 
+.user-info{
+    padding:2em;
+    display:flex;
+    flex-direction:column;
+    gap:1em;
+}
+
+
 @media screen and (max-width: 767px) {
   .item {
     width: 80%;

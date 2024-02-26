@@ -12,6 +12,30 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 
+@app.route("/profile", methods=["POST", "GET"])
+@login_required
+def profile():
+    user = session['user_id']
+    connection = sqlite3.connect("bookex.db")
+    username = connection.cursor().execute("SELECT username FROM users WHERE id =?",(user,)).fetchone()[0]
+    email = connection.cursor().execute("SELECT email FROM users WHERE id =?",(user,)).fetchone()[0]
+    user_info = [username, email]
+    connection.close()
+
+    if request.method == 'POST':
+        new_username = request.form.get('username')
+        new_email = request.form.get('email')
+        confirmation = request.form.get('password')
+        if authenticate(username, confirmation):
+            connection = connection = sqlite3.connect("bookex.db")
+            connection.cursor().execute("UPDATE users SET username=?, email=? WHERE id= ?", (new_username,new_email,user))
+            connection.commit()
+            connection.close()
+        user_info = [new_username, new_email]
+        return render_template("profile.html", data=user_info)
+    print(user, username, email)
+    return render_template("profile.html", data=user_info)
+
 
 @app.route("/", methods=['POST', "GET"])
 def login():
@@ -38,6 +62,7 @@ def register():
         if password == password_confirmation:
             connection = sqlite3.connect("bookex.db")
             occupied = connection.cursor().execute("SELECT username FROM users")
+            connection.close()
             for name in occupied:
                 if username == name[0]:
                     return "Username Taken."
@@ -72,7 +97,6 @@ def home():
     user = session['user_id']
     connection = sqlite3.connect("bookex.db")
     db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
-
     return render_template("home.html", data=list(db_books))
 
 
