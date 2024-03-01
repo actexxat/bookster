@@ -4,15 +4,16 @@ import requests
 from functools import wraps
 import hashlib
 
-def removeFromDB(title):
-    connection = sqlite3.connect("bookex.db")
+
+def remove_from_db(title):
+    connection = connectDB()
     user = session['user_id']
-    connection.cursor().execute('DELETE FROM books WHERE title = ? AND userid = ?', (title,user))
+    connection.cursor().execute('DELETE FROM books WHERE title = ? AND userid = ?', (title, user))
     connection.commit()
 
 
-def update_db(title,author,year,cover,state):
-    connection = sqlite3.connect("bookex.db")
+def update_db(title, author, year, cover, state):
+    connection = connectDB()
     user = session['user_id']
     connection.cursor().execute('INSERT INTO books(title,author,year,cover,userid,shelf) VALUES(?,?,?,?,?,?)', (title, author, year, cover,user,state))
     connection.commit()
@@ -41,7 +42,7 @@ def login_required(f):
 
 
 def authenticate(username, password):
-    connection = sqlite3.connect("bookex.db")
+    connection = connectDB()
     registered = connection.cursor().execute("SELECT username FROM users").fetchall()
     names = [item[0] for item in registered]
 
@@ -57,3 +58,12 @@ def authenticate(username, password):
             return True
         else: return False
     else: return False
+
+
+def connectDB():
+    connection = sqlite3.connect("bookex.db")
+    return connection
+
+def commit_close(conn):
+    conn.commit()
+    conn.close()

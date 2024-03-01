@@ -32,8 +32,7 @@ html, body{
 }
 
 
-.home{
-    }
+
 .search-box{
     width: 70%;
     margin: 1em auto;
@@ -74,13 +73,8 @@ html, body{
     margin: 0 auto;
 }
 
-.book-cover{
-    max-width:6em;
-}
 
-.remove{
-    width:6em;
-}
+
 
 .empty{
     width:80%;
@@ -127,6 +121,7 @@ html, body{
     display:flex;
     flex-direction:column;
     min-height:100vh;
+    padding: 1em;
 }
 
 .user-info{
@@ -142,3 +137,47 @@ html, body{
     width: 80%;
   }
 }
+
+.books-container{
+    border: 1px solid gray;
+    border-radius: 8px;
+    display: grid;
+    padding: 2em;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fill, 186px);
+    
+}
+li{
+    text-align: center;
+    border-bottom: 1px dotted black ;
+    
+}
+.book-item{
+    margin:0 auto;
+    text-align: center;
+    padding: .4em;
+    justify-content: center ;
+
+}
+
+
+.title{
+    font: 800 1em  Arial, sans-serif;
+}
+.cover{
+    min-width: 120px;
+    max-width: 120px;
+    max-height: 180px;
+    min-width: 180px;
+}
+.author{
+    color: gray;
+}
+.year{
+    font: .8em Arial, sans-serif;
+}
+.title, .author, .year, .remove{
+    margin-top: 1.5em;
+
+}
+

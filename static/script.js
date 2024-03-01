@@ -5,7 +5,7 @@ window.addEventListener("load", (event) => {
 });
 removeBTNS.forEach(rmv =>{
     rmv.addEventListener('click', function(){
-        let titleRmv = this.parentElement.parentElement.children[2].textContent;
+        let titleRmv = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
         send_rmv = {
             title:titleRmv
             }
@@ -17,6 +17,7 @@ removeBTNS.forEach(rmv =>{
     })
 })
 
+// depricated serial numbers - when tables were used
 function rankSerials(){
     let serials = document.querySelectorAll(".serial")
     let s = 0

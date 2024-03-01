@@ -7,11 +7,11 @@
 
         <form class="form-group" action="/profile" method="post">
             <label style="display:block;" for="username">Username: </label>
-            <input class=" form-control-sm" type="text" id="username" name="username" value="{{ data[0]}}">
+            <input class=" form-control-sm" type="text" id="username" name="username" value="" placeholder="{{ data[0]}}">
             <label style="display:block;" for="email"> Email: </label>
-            <input class=" form-control-sm" type="email" id="email" name="email"  value="{{ data[1]}}">
-            <label style="display:block;" for="password">Enter your Password To Confirm these changes: </label>
-            <input class=" form-control-sm" type="password" id="password" name="password"  value="">
+            <input class=" form-control-sm" type="email" id="email" name="email"  value="{{ data[1] }}">
+            <label style="display:block;" for="password">Confirm Changes: </label>
+            <input class=" form-control-sm" type="password" id="password" name="password"  value="" placeholder="********">
 
             <input class="form-control" type="submit" name="submit" value="Change" style="background-color: #162D35;color:white;">
         </form>

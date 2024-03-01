@@ -8,43 +8,23 @@
       </div>
     </form>
 
+
 {% if data|length > 0 %}
 
-    <div class="  table-responsive card" style="width: 80%;margin:0 auto;">
-        <table class="table table-dark table-striped table-hover " style="">
-            <thead>
-              <tr>
-                <th class="text-center align-middle" scope="col">#</th>
-                <th class="text-center align-middle" scope="col">Cover</th>
-                <th class="text-center align-middle" scope="col" style="width:9em;">Title</th>
-                <th class="text-center align-middle" scope="col">Autor</th>
-                <th class="text-center align-middle" scope="col">Year</th>
-                <th class="d-none text-center align-middle" scope="col">User</th>
-                <th class="text-center align-middle" scope="col">shelf</th>
-                <th class="text-center align-middle" scope="col">X</th>
-                  </tr>
-            </thead>
-
-            <tbody>
+            <div class="books-container">
             {% for book in data %}
-                  <tr>
-                    <th class="serial text-center align-middle" scope="row"></th>
-                    <td class="text-center align-middle"><img src="{{book[1]}}" alt="bookcover" class="book-cover"></td>
-                    <td class="text-center align-middle">{{book[2]}}</td>
-                    <td class="text-center align-middle">{{book[3]}}</td>
-                    <td class="text-center align-middle">{{book[4]}}</td>
-                    <td class="d-none text-center align-middle">{{book[5]}}</td>
-                    <td class="text-center align-middle">{{book[6]}}</td>
-                      <td class="text-center align-middle">
-                          <button class="remove btn btn-dark" type="submit">Remove</button></td>
-                  </tr>
-            </tbody>
-
+                <div class=" card book-item">
+                    <div class="cover"><img src="{{ book[1] }}"></div>
+                    <div class="title"> {{ book[2] }}</div>
+                    <div class="year"> {{ book[4] }}</div>
+                    <em class="author"> {{ book[3] }}</em>
+                    <!-- useless for now <div class="user"> {{ book[5] }}</div> -->
+                    <div> <button class="remove btn btn-dark" type="submit"> Remove</div>
+                </div>
             {% endfor %}
-        </table>
+            </div>
         {% else %}
         <div class="empty"><h1>WOW! SUCH EMPTINESS!</h1></div>
         {% endif %}
-    </div>
 
 {% endblock %}

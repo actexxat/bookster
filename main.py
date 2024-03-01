@@ -1,6 +1,6 @@
 from flask import Flask,flash, request, render_template, g, session, redirect, jsonify,url_for
 from flask_session import Session
-from helpers import update_db, removeFromDB, search_books, login_required, authenticate
+from helpers import update_db, remove_from_db, search_books, login_required, authenticate, connectDB, commit_close
 import hashlib
 import sqlite3
 
@@ -16,7 +16,7 @@ Session(app)
 @login_required
 def profile():
     user = session['user_id']
-    connection = sqlite3.connect("bookex.db")
+    connection = connectDB()
     username = connection.cursor().execute("SELECT username FROM users WHERE id =?",(user,)).fetchone()[0]
     email = connection.cursor().execute("SELECT email FROM users WHERE id =?",(user,)).fetchone()[0]
     user_info = [username, email]
@@ -27,10 +27,9 @@ def profile():
         new_email = request.form.get('email')
         confirmation = request.form.get('password')
         if authenticate(username, confirmation):
-            connection = connection = sqlite3.connect("bookex.db")
+            connection = connectDB()
             connection.cursor().execute("UPDATE users SET username=?, email=? WHERE id= ?", (new_username,new_email,user))
-            connection.commit()
-            connection.close()
+            commit_close(connection)
         user_info = [new_username, new_email]
         return render_template("profile.html", data=user_info)
     print(user, username, email)
@@ -60,7 +59,7 @@ def register():
         username, password, password_confirmation, email = request.form.get("username"), request.form.get(
             "password"), request.form.get("password-con"), request.form.get("email")
         if password == password_confirmation:
-            connection = sqlite3.connect("bookex.db")
+            connection = connectDB()
             occupied = connection.cursor().execute("SELECT username FROM users")
             for name in occupied:
                 if username == name[0]:
@@ -83,8 +82,7 @@ def register():
             hex_dig = hash_object.hexdigest()  # Get the hexadecimal digest of the hashed password
 
             connection.cursor().execute("INSERT INTO users(username, hash, email) VALUES(?, ?, ?)", (username, hex_dig, email))
-            connection.commit()
-            connection.close()
+            commit_close(connection)
             flash("Registration Successful!")
             return render_template("login.html")
     return render_template("register.html")
@@ -94,8 +92,9 @@ def register():
 @login_required
 def home():
     user = session['user_id']
-    connection = sqlite3.connect("bookex.db")
-    db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,))
+    connection = connectDB()
+    db_books = connection.cursor().execute("SELECT bookid,cover,title,author,year,username,shelf FROM books INNER JOIN users ON books.userid = users.id WHERE userid = ?",(user,)).fetchall()
+    print(db_books)
     return render_template("home.html", data=list(db_books))
 
 
@@ -139,7 +138,8 @@ def get_data():
 def get_remove():
     if request.method == 'POST':
         data = request.get_json()
+        print(data)
         title = data['title']
-        removeFromDB(title)
+        remove_from_db(title)
     return redirect(url_for('home'))
 
